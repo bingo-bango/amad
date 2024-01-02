@@ -30,7 +30,9 @@ class CalculateAircraft(System):
 
         self.connect(self.ac_geom.geom_out, self.cruise_fuel.geom_in)
         self.connect(self.ac_geom, self.mass, {"x_fuse_out": "x_fuse"})
-        # self.connect(self.cruise_fuel, self.mass, {'m_fuel_cruise.mass': 'm_fuel_cruise'})
+        self.connect(
+            self.cruise_fuel, self.mass, {"m_fuel_cruise.mass": "m_fuel_cruise"}
+        )
 
         self.add_unknown("m_mto", lower_bound=10000.0)
         self.add_equation("m_mto == mass.total_mass")
@@ -85,7 +87,7 @@ if __name__ == "__main__":
     calc_perf.z_altitude = 11582.4  # cruise altitude
     calc_perf.mach_current = 0.75  # cruise mach
     calc_perf.thrust_eng = 120000.0
-    calc_perf.n_pax = 150
+    calc_perf.n_pax = 180
     calc_perf.x_range = 5000 * 1000.0  # 5000km
 
     calc_perf.run_drivers()
